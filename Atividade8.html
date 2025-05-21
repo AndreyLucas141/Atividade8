@@ -27,6 +27,8 @@
       display: flex;
       justify-content: space-around;
       margin-bottom: 20px;
+      width: 100%;
+      padding: 3px;
     }
     .tabs a {
       text-decoration: none;
@@ -84,11 +86,10 @@
     <h1>Calculadora de Saúde</h1>
     <div class="tabs">
       <a href="#harris-tab" class="tab-link" onclick="showTab('harris-tab')">Harris Benedict</a>
+      <a href="#tbm-tab" class="tab-link" onclick="showTab('tbm-tab')">TBM</a>
       <a href="#water-tab" class="tab-link" onclick="showTab('water-tab')">Água Ideal</a>
       <a href="#deficit-tab" class="tab-link" onclick="showTab('deficit-tab')">Déficit Calórico</a>
-      <a href="#deficit-tab" class="tab-link" onclick="showTab('deficit-tab')">Déficit Calórico</a>
-
-
+      <a href="#caminhada-tab" class="tab-link" onclick="showTab('caminhada-tab')">Gasto Calórico</a>
     </div>
 
     <!-- Aba Harris Benedict -->
@@ -108,7 +109,42 @@
       <button onclick="calculateHarris()">Calcular</button>
       <div class="result" id="result-harris"></div>
     </div>
-
+ 
+ 
+    <!-- Gasto calórico diário total (TMB × fator de atividade) -->
+            <div id="tbm-tab" class="tab-content">
+          <h2>Gasto calórico diário total (TMB × fator de atividade)</h2>
+          
+              <label for="gender">Gênero:</label>
+              <select id="gender">
+          <option value="male">Masculino</option>
+          <option value="female">Feminino</option>
+              </select><br><br>
+          
+              <label for="weight-hb">Peso (kg):</label>
+              <input type="number" id="weight-hb" placeholder="Digite seu peso"><br><br>
+          
+              <label for="height">Altura (cm):</label>
+              <input type="number" id="height" placeholder="Digite sua altura"><br><br>
+          
+              <label for="age">Idade:</label>
+              <input type="number" id="age" placeholder="Digite sua idade"><br><br>
+          
+              <label for="activity-level">Nível de atividade:</label>
+              <select id="activity-level">
+          <option value="1.2">Sedentário</option>
+          <option value="1.375">Leve</option>
+          <option value="1.55">Moderado</option>
+          <option value="1.725">Intenso</option>
+          <option value="1.9">Muito intenso</option>
+              </select><br><br>
+          
+              <button onclick="calculateTMB()">Calcular</button>
+          
+              <p id="result-harris"></p>
+        </div>
+ 
+ 
     <!-- Aba Água Ideal -->
     <div id="water-tab" class="tab-content">
       <h2>Quantidade Ideal de Água</h2>
@@ -133,13 +169,15 @@
     </div>
 
     <!-- Cálculo de gasto na caminhada -->
-    <h2>Gasto Calórico na Caminhada</h2>
-    <label for="weight-walk">Peso (kg):</label>
-    <input type="number" id="weight-walk" placeholder="Digite seu peso">
-    <label for="distance">Distância (km):</label>
-    <input type="number" id="distance" placeholder="Digite a distância">
-    <button onclick="calculateWalkCalories()">Calcular Gasto</button>
-    <div id="result-walk"></div>
+    <div id="caminhada-tab" class="tab-content">
+      <h2>Gasto Calórico na Caminhada</h2>
+      <label for="weight-walk">Peso (kg):</label>
+      <input type="number" id="weight-walk" placeholder="Digite seu peso">
+      <label for="distance">Distância (km):</label>
+      <input type="number" id="distance" placeholder="Digite a distância">
+      <button onclick="calculateWalkCalories()">Calcular Gasto</button>
+      <div id="result-walk"></div>
+    </div>
 
             <!-- Cadastro de usuário -->
     <h2>Cadastro de Usuário</h2>
@@ -189,6 +227,7 @@
       document.getElementById('result-harris').innerText = `Gasto Energético Basal: ${result.toFixed(2)} calorias`;
     }
 
+            // Função para calcular agua ideal
     function calculateWater() {
       const weight = parseFloat(document.getElementById('weight-water').value) || 0;
       const exercise = parseFloat(document.getElementById('exercise-time').value) || 0;

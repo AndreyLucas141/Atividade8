@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 8</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      background: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .tabs a {
+      text-decoration: none;
+      padding: 10px 20px;
+      color: #007bff;
+      background: #e9e9e9;
+      border-radius: 5px;
+    }
+    .tabs a.active {
+      background: #007bff;
+      color: #fff;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    button {
+      background: #007bff;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de Saúde</h1>
+    <div class="tabs">
+      <a href="#harris-tab" class="tab-link" onclick="showTab('harris-tab')">Harris Benedict</a>
+      <a href="#water-tab" class="tab-link" onclick="showTab('water-tab')">Água Ideal</a>
+      <a href="#deficit-tab" class="tab-link" onclick="showTab('deficit-tab')">Déficit Calórico</a>
+      <a href="#deficit-tab" class="tab-link" onclick="showTab('deficit-tab')">Déficit Calórico</a>
+
+
+    </div>
+
+    <!-- Aba Harris Benedict -->
+    <div id="harris-tab" class="tab-content">
+      <h2>Fórmula Harris Benedict</h2>
+      <label for="gender">Gênero</label>
+      <select id="gender">
+        <option value="male">Masculino</option>
+        <option value="female">Feminino</option>
+      </select>
+      <label for="weight-hb">Peso (kg)</label>
+      <input type="number" id="weight-hb" placeholder="Digite seu peso">
+      <label for="height">Altura (cm)</label>
+      <input type="number" id="height" placeholder="Digite sua altura">
+      <label for="age">Idade (anos)</label>
+      <input type="number" id="age" placeholder="Digite sua idade">
+      <button onclick="calculateHarris()">Calcular</button>
+      <div class="result" id="result-harris"></div>
+    </div>
+
+    <!-- Aba Água Ideal -->
+    <div id="water-tab" class="tab-content">
+      <h2>Quantidade Ideal de Água</h2>
+      <label for="weight-water">Peso (kg)</label>
+      <input type="number" id="weight-water" placeholder="Digite seu peso">
+      <label for="exercise-time">Tempo de Exercício (horas)</label>
+      <input type="number" id="exercise-time" placeholder="Digite o tempo de exercício" step="0.1">
+      <button onclick="calculateWater()">Calcular</button>
+      <div class="result" id="result-water"></div>
+    </div>
+
+
+    <!-- Cálculo de Déficit Calórico -->
+    <div id="deficit-tab" class="tab-content">
+      <h2>Déficit Calórico</h2>
+      <label for="target-loss">Peso a perder (kg):</label>
+      <input type="number" id="target-loss" placeholder="Digite o peso a perder">
+      <label for="days">Dias:</label>
+      <input type="number" id="days" placeholder="Digite o número de dias">
+      <button onclick="calculateDeficit()">Calcular Déficit</button>
+      <div id="result-deficit"></div>
+    </div>
+
+    <!-- Cálculo de gasto na caminhada -->
+    <h2>Gasto Calórico na Caminhada</h2>
+    <label for="weight-walk">Peso (kg):</label>
+    <input type="number" id="weight-walk" placeholder="Digite seu peso">
+    <label for="distance">Distância (km):</label>
+    <input type="number" id="distance" placeholder="Digite a distância">
+    <button onclick="calculateWalkCalories()">Calcular Gasto</button>
+    <div id="result-walk"></div>
+
+            <!-- Cadastro de usuário -->
+    <h2>Cadastro de Usuário</h2>
+    <label for="name">Nome:</label>
+    <input type="text" id="name" placeholder="Digite seu nome">
+    <label for="age">Idade:</label>
+    <input type="number" id="age" placeholder="Digite sua idade">
+    <label for="gender">Gênero:</label>
+    <select id="gender">
+        <option value="male">Masculino</option>
+        <option value="female">Feminino</option>
+    </select>
+    <label for="weight-hb">Peso (kg):</label>
+    <input type="number" id="weight-hb" placeholder="Digite seu peso">
+    <label for="height">Altura (cm):</label>
+    <input type="number" id="height" placeholder="Digite sua altura">
+    <label for="activity-level">Nível de Atividade:</label>
+    <select id="activity-level">
+        <option value="1.2">Sedentário</option>
+        <option value="1.375">Leve</option>
+        <option value="1.55">Moderado</option>
+        <option value="1.725">Ativo</option>
+        <option value="1.9">Muito ativo</option>
+    </select>
+    <button onclick="saveUser()">Salvar Cadastro</button>
+
+  <script>
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const links = document.querySelectorAll('.tab-link');
+
+      tabs.forEach(tab => tab.classList.remove('active'));
+      links.forEach(link => link.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      document.querySelector(`[href="#${tabId}"]`).classList.add('active');
+    }
+
+    function calculateHarris() {
+      const gender = document.getElementById('gender').value;
+      const weightHb = parseFloat(document.getElementById('weight-hb').value) || 0;
+      const height = parseFloat(document.getElementById('height').value) || 0;
+      const age = parseFloat(document.getElementById('age').value) || 0;
+      let result = 0;
+      if (gender === 'male') result = 66 + (13.75 * weightHb) + (5 * height) - (6.8 * age);
+      else result = 655 + (9.56 * weightHb) + (1.85 * height) - (4.7 * age);
+      document.getElementById('result-harris').innerText = `Gasto Energético Basal: ${result.toFixed(2)} calorias`;
+    }
+
+    function calculateWater() {
+      const weight = parseFloat(document.getElementById('weight-water').value) || 0;
+      const exercise = parseFloat(document.getElementById('exercise-time').value) || 0;
+      const result = (weight * 35) + (exercise * 500);
+      document.getElementById('result-water').innerText = `Quantidade Ideal de Água: ${result.toFixed(2)} ml`;
+    }
+
+            // Função para calcular TMB
+        function calculateTMB() {
+            const gender = document.getElementById("gender").value;
+            const weight = parseFloat(document.getElementById("weight-hb").value);
+            const height = parseFloat(document.getElementById("height").value);
+            const age = parseInt(document.getElementById("age").value);
+            const activityLevel = parseFloat(document.getElementById("activity-level").value);
+
+            let tmb;
+            if (gender === "male") {
+                tmb = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+            } else {
+                tmb = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+            }
+
+            const totalCalories = tmb * activityLevel;
+            document.getElementById("result-harris").innerText = `Gasto calórico diário: ${totalCalories.toFixed(2)} kcal`;
+        }
+
+        // Função para calcular déficit calórico
+        function calculateDeficit() {
+            const targetWeightLoss = parseFloat(document.getElementById("target-loss").value);
+            const days = parseInt(document.getElementById("days").value);
+
+            const deficit = (7700 * targetWeightLoss) / days;
+            document.getElementById("result-deficit").innerText = `Déficit diário necessário: ${deficit.toFixed(2)} kcal`;
+        }
+
+        // Função para calcular gasto calórico na caminhada
+        function calculateWalkCalories() {
+            const weight = parseFloat(document.getElementById("weight-walk").value);
+            const distance = parseFloat(document.getElementById("distance").value);
+
+            const caloriesBurned = weight * distance * 0.5;
+            document.getElementById("result-walk").innerText = `Gasto calórico na caminhada: ${caloriesBurned.toFixed(2)} kcal`;
+        }
+
+        // Função para salvar cadastro de usuário
+        function saveUser() {
+            const user = {
+                name: document.getElementById("name").value,
+                age: parseInt(document.getElementById("age").value),
+                gender: document.getElementById("gender").value,
+                weight: parseFloat(document.getElementById("weight-hb").value),
+                height: parseFloat(document.getElementById("height").value),
+                activityLevel: parseFloat(document.getElementById("activity-level").value)
+            };
+
+            localStorage.setItem("userData", JSON.stringify(user));
+            alert("Cadastro realizado com sucesso!");
+        }
+
+  </script>
+</body>
+</html>

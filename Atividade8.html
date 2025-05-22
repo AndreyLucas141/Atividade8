@@ -122,13 +122,13 @@
               </select><br><br>
           
               <label for="weight-hb">Peso (kg):</label>
-              <input type="number" id="weight-hb" placeholder="Digite seu peso"><br><br>
+              <input type="number" id="weight-h" placeholder="Digite seu peso"><br><br>
           
               <label for="height">Altura (cm):</label>
-              <input type="number" id="height" placeholder="Digite sua altura"><br><br>
+              <input type="number" id="height-h" placeholder="Digite sua altura"><br><br>
           
               <label for="age">Idade:</label>
-              <input type="number" id="age" placeholder="Digite sua idade"><br><br>
+              <input type="number" id="age-h" placeholder="Digite sua idade"><br><br>
           
               <label for="activity-level">Nível de atividade:</label>
               <select id="activity-level">
@@ -141,7 +141,7 @@
           
               <button onclick="calculateTMB()">Calcular</button>
           
-              <p id="result-harris"></p>
+              <div class="result" id="result-TBM"></div>
         </div>
  
  
@@ -165,7 +165,7 @@
       <label for="days">Dias:</label>
       <input type="number" id="days" placeholder="Digite o número de dias">
       <button onclick="calculateDeficit()">Calcular Déficit</button>
-      <div id="result-deficit"></div>
+      <div class="result" id="result-deficit"></div>
     </div>
 
     <!-- Cálculo de gasto na caminhada -->
@@ -176,7 +176,7 @@
       <label for="distance">Distância (km):</label>
       <input type="number" id="distance" placeholder="Digite a distância">
       <button onclick="calculateWalkCalories()">Calcular Gasto</button>
-      <div id="result-walk"></div>
+      <div class="result" id="result-walk"></div>
     </div>
 
             <!-- Cadastro de usuário -->
@@ -238,9 +238,9 @@
             // Função para calcular TMB
         function calculateTMB() {
             const gender = document.getElementById("gender").value;
-            const weight = parseFloat(document.getElementById("weight-hb").value);
-            const height = parseFloat(document.getElementById("height").value);
-            const age = parseInt(document.getElementById("age").value);
+            const weight = parseFloat(document.getElementById("weight-h").value);
+            const height = parseFloat(document.getElementById("height-h").value);
+            const age = parseInt(document.getElementById("age-h").value);
             const activityLevel = parseFloat(document.getElementById("activity-level").value);
 
             let tmb;
@@ -251,7 +251,7 @@
             }
 
             const totalCalories = tmb * activityLevel;
-            document.getElementById("result-harris").innerText = `Gasto calórico diário: ${totalCalories.toFixed(2)} kcal`;
+            document.getElementById("result-TBM").innerText = `Gasto calórico diário: ${totalCalories.toFixed(2)} kcal`;
         }
 
         // Função para calcular déficit calórico
